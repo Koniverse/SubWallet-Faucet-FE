@@ -1,0 +1,26 @@
+{
+  "gemini-1b": {
+    "total_size_network": "1526489674283",
+    "usd": 0.01,
+    "name": "Subspace Gemini 1b",
+    "unit": "tSSC"
+  },
+  "gemini-2a": {
+    "total_size_network": "3269978759259",
+    "usd": 0.01,
+    "name": "Subspace Gemini 2a",
+    "unit": "tSSC"
+  },
+  "gemini-3f": {
+    "total_size_network": "1968157690905032",
+    "usd": 0.01,
+    "name": "Subspace Gemini 3f",
+    "unit": "tSSC"
+  },
+  "gemini-3g": {
+    "total_size_network": "1419088118528000",
+    "usd": 0.01,
+    "name": "Subspace Gemini 3g",
+    "unit": "tSSC"
+  }
+}
