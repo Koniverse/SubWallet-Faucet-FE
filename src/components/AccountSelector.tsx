@@ -39,7 +39,7 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
                     addressPreLength={9}
                     addressSufLength={9}
                     avatarIdentPrefix={42}
-                    avatarSize={40}
+                    avatarSize={24}
                     avatarTheme="polkadot"
                     middleItem={(
                         <div className={`account-item-content-wrapper`}>
@@ -185,17 +185,25 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
             paddingRight: 12,
             display: 'none'
         },
+        '.ant-web3-block': {
+            padding: '6px 4px 6px 12px',
+        },
         '.selected-account': {
             'ant-web3-block': {
                 width: '100%',
+
             }
         },
         '.account-item-content-wrapper': {
 
             '.account-item-address-wrapper': {
                 display: 'flex',
+                fontSize: '14px',
+                fontWeight: 600,
+                lineHeight: '22px',
+
                 '.__item-address': {
-                    color:  'rgba(255, 255, 255, 0.45)',
+                    color: 'rgba(255, 255, 255, 0.45)',
                 }
             }
         }

@@ -9,7 +9,7 @@ import {Icon, Image, SettingItem, SwList} from "@subwallet/react-ui";
 import {useTranslation} from "react-i18next";
 import {Theme, ThemeProps} from "../../../types";
 import styled, {useTheme} from "styled-components";
-import {DownloadSimple, CheckCircle, MagnifyingGlass} from "phosphor-react";
+import {DownloadSimple, MagnifyingGlass} from "phosphor-react";
 import EmptyList from "../../EmptyList";
 import {Wallet} from '@subwallet/wallet-connect/types';
 import CN from "classnames";
@@ -33,7 +33,7 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
     const {token} = useTheme() as Theme;
 
     const leftItemIcon = useMemo(() => {
-        const icon = extensionName === 'polkadot-js' ? 'https://web.subwallet.app/images/projects/polkadot-js.png' : 'https://web.subwallet.app/images/projects/subwallet-gradient.png';
+        const icon = extensionName === 'polkadot-js' ? '/images/polkadot-js.png' : '/images/subwallet-gradient.png';
         return (
             <Image
                 height={28}
@@ -79,23 +79,16 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
         if (isMobile){
             return '';
         }
+        if (!installed) {
+            return <Icon
+                className={'__download-icon'}
+                phosphorIcon={DownloadSimple}
+                size='sm'
+                weight='fill'
+            />
+        }
 
-        return !installed
-                    ? <Icon
-                        className={'__download-icon'}
-                        phosphorIcon={DownloadSimple}
-                        size='sm'
-                        weight='fill'
-                    />
-                    : (
-                        <Icon
-                            className={'__selected-icon'}
-                            iconColor={token.colorSecondary}
-                            phosphorIcon={CheckCircle}
-                            size='sm'
-                            weight='fill'
-                        />
-                    );
+        return '';
     }, [installed, token.colorSecondary]);
 
     return (

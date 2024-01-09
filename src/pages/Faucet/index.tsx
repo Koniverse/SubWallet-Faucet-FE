@@ -17,6 +17,7 @@ import {AccountSelector} from "../../components/AccountSelector";
 import {openInNewTab} from "../../libs";
 
 const RESULT_MODAL = 'result-modal-id';
+const SIGNATURE_RANDOM_CODE = 'randomCode';
 const Component = () => {
     const {t} = useTranslation();
     const {activeModal, inactiveModal} = useContext(ModalContext);
@@ -30,7 +31,6 @@ const Component = () => {
     useEffect(() => {
         setTitle(t('Faucet'));
         setShowBackButtonOnHeader(false);
-        // activeModal(RESULT_MODAL);
     }, [setShowBackButtonOnHeader, setTitle, t]);
 
     const contentList = useMemo(() => {
@@ -67,7 +67,7 @@ const Component = () => {
         let newSignature: string | null = currentSignature || '';
         if (isSign) {
             try {
-                newSignature = await signMessage(walletAccount.address, 'randomCode');
+                newSignature = await signMessage(walletAccount.address, SIGNATURE_RANDOM_CODE);
                 if (newSignature != null) {
                     setCurrentSignature(newSignature);
                 }
