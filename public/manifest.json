@@ -1,6 +1,6 @@
 {
-  "short_name": "SubWallet-ChainList-FE",
-  "name": "SubWallet ChainList Frontend",
+  "short_name": "SubWallet-Faucet-FE",
+  "name": "SubWallet Faucet Frontend",
   "icons": [
     {
       "src": "favicon.ico",
