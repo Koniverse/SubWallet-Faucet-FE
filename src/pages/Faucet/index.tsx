@@ -22,27 +22,9 @@ const Component = () => {
     const {activeModal, inactiveModal} = useContext(ModalContext);
     const {setTitle, setShowBackButtonOnHeader} = useContext(AppContext);
     const [submitLoading, setSubmitLoading] = useState(false);
-    const [checkFaucetLoading, setCheckFaucetLoading] = useState(false);
-    const [resetContentNumber, setResetContentNumber] = useState(0);
     const {open} = useContext(OpenSelectWallet);
     const {accounts, walletAccount, currentSignature, setCurrentSignature, signMessage} = useContext(WalletContext);
     const [result, setResult] = useState<ResultType>({} as ResultType);
-    const [checkAddress, setCheckAddress] = useState<ResultType>({} as ResultType);
-    useEffect(() => {
-        const getCheckAddress = async () => {
-            setCheckFaucetLoading(true);
-            try {
-                const response = await FaucetService.getCheckAddress(walletAccount.address) as unknown as ResultType;
-                setCheckFaucetLoading(false);
-                setCheckAddress(response)
-            } catch (e) {
-                setCheckFaucetLoading(false);
-            }
-        }
-        if (walletAccount) {
-            getCheckAddress();
-        }
-    }, [walletAccount, resetContentNumber]);
 
 
     useEffect(() => {
@@ -51,37 +33,30 @@ const Component = () => {
         // activeModal(RESULT_MODAL);
     }, [setShowBackButtonOnHeader, setTitle, t]);
 
-    const getStatusError = useCallback((status: boolean) => {
-        if (checkFaucetLoading || walletAccount === undefined)
-            return StatusIconEnum.DEFAULT;
-        return status ? StatusIconEnum.SUCCESS : StatusIconEnum.FAIL;
-    }, [walletAccount, checkFaucetLoading]);
-
     const contentList = useMemo(() => {
         const values = [];
         values.push({
-            status: getStatusError(checkAddress.accountSent),
+            status: StatusIconEnum.DEFAULT,
             title: t('PARA in the faucet is still available.'),
         });
         values.push({
-            status: getStatusError(checkAddress.hasNotReceivedFaucet),
+            status: StatusIconEnum.DEFAULT,
             title: t('The address hasn’t received PARA from the faucet.'),
         });
         values.push({
-            status: getStatusError(checkAddress.accountReceivedNative),
+            status: StatusIconEnum.DEFAULT,
             title: t('The address has 0 PARA.'),
         });
         values.push({
-            status: getStatusError(checkAddress.accountReceived),
+            status: StatusIconEnum.DEFAULT,
             title: t('The address has either DOT or cDOT-7/14 on the Parallel network.'),
         });
         return values;
-    }, [getStatusError, checkAddress.accountSent, checkAddress.hasNotReceivedFaucet, checkAddress.accountReceived, t]);
+    }, [t]);
 
-    const onCloseDetail = useCallback(() => {
+    const onCloseResultModal = useCallback(() => {
         inactiveModal(RESULT_MODAL);
-        setResetContentNumber(resetContentNumber + 1);
-    }, [inactiveModal, setResetContentNumber, resetContentNumber]);
+    }, [inactiveModal]);
 
     const onClickReceive = useCallback(async () => {
         if (walletAccount === undefined) {
@@ -163,7 +138,7 @@ const Component = () => {
             {result && <StatusModal
                 result={result}
                 id={RESULT_MODAL}
-                onCancel={onCloseDetail}
+                onCancel={onCloseResultModal}
             />}
 
 
@@ -185,8 +160,6 @@ const Component = () => {
                             weight='fill'
                         />
                     }
-                    onClick={() => {
-                    }}
                 >
                     <div className={'__footer-button-content'} onClick={() => {
                         openInNewTab('https://earn.subwallet.app/')();

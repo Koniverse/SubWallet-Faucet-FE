@@ -83,7 +83,7 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
                 </div>
             </>
         );
-    }, []);
+    }, [token.colorSuccess]);
 
     return (
         <BaseSelectModal

@@ -9,10 +9,7 @@ import {WalletAccount} from "@subwallet/wallet-connect/types";
 import {Theme, ThemeProps} from "../types";
 import {WalletContext} from "../providers/WalletContextProvider";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
-import useNotification from "../hooks/useNotification";
 import {toShort} from "@subwallet/react-ui/es/_util/address";
-
-;
 
 interface Props extends ThemeProps {
     loading?: boolean
@@ -21,14 +18,14 @@ interface Props extends ThemeProps {
 function Component({className}: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
     const {t} = useTranslation();
     const {disconnectAccount} = useContext(WalletContext);
-    const notification = useNotification();
+    // const notification = useNotification();
     const {token} = useTheme() as Theme;
     const {accounts, walletAccount, setCurrentAddress} = useContext(WalletContext);
     const _onClickCopyButton = useCallback((e: React.SyntheticEvent) => {
         e.stopPropagation();
-        console.log(notification)
-        console.log('copy')
-        notification({message: t('Copied')});
+        // console.log(notification)
+        // console.log('copy')
+        // notification({message: t('Copied')});
     }, []);
     const _onSelect = useCallback(async (address: string) => {
         setCurrentAddress(address);

@@ -96,7 +96,7 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
                             weight='fill'
                         />
                     );
-    }, [installed]);
+    }, [installed, token.colorSecondary]);
 
     return (
         <SettingItem

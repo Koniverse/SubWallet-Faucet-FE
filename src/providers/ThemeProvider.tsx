@@ -181,6 +181,9 @@ export function ThemeProvider({children}: ThemeProviderProps): React.ReactElemen
         >
             <ThemeGenerator themeConfig={themeConfig}>
                 <TooltipContainer id='tooltip-container'/>
+                <div
+                    id='popup-container'
+                />
                 {children}
 
             </ThemeGenerator>
