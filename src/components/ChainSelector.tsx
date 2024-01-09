@@ -1,10 +1,13 @@
-import {InputRef} from '@subwallet/react-ui';
+import {Icon, InputRef} from '@subwallet/react-ui';
 import React, {ForwardedRef, forwardRef, useCallback, useMemo} from 'react';
-import styled from 'styled-components';
-import { ThemeProps} from '../../types';
+import styled, {useTheme} from 'styled-components';
 import {useTranslation} from "react-i18next";
-import {BaseSelectModal} from "../../components/Modal/BaseSelectModal";
-import ParallelLogo from "../../components/Logo/ParallelLogo";
+import {Theme, ThemeProps} from "../types";
+import ParallelLogo from "./Logo/ParallelLogo";
+import {BaseSelectModal} from "./Modal/BaseSelectModal";
+import {CheckCircle} from "phosphor-react";
+
+;
 
 interface Props extends ThemeProps {
     loading?: boolean
@@ -14,6 +17,7 @@ const renderEmpty = () => <>a</>;
 
 function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
     const {className = ''} = props;
+    const {token} = useTheme() as Theme;
 
 
     const onSelect = useCallback((address: string) => {
@@ -61,12 +65,21 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
         return (
             <>
                 <div className="__render-item">
-                    <div className="__render-item-icon">
-                        <ParallelLogo/>
+                    <div className="__render-name">
+                        <div className="__render-item-icon">
+                            <ParallelLogo/>
+                        </div>
+                        <div className="__render-item-name">
+                            {item.name}
+                        </div>
                     </div>
-                    <div className="__render-item-name">
-                        {item.name}
-                    </div>
+                    <Icon
+                        iconColor={token.colorSuccess}
+                        phosphorIcon={CheckCircle}
+                        size='sm'
+                        type='phosphor'
+                        weight='fill'
+                    />
                 </div>
             </>
         );
@@ -88,7 +101,7 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
             renderSelected={renderChainSelected}
             renderWhenEmpty={renderEmpty}
             selected={value || ''}
-            title={ t('Select network')}
+            title={t('Select network')}
             tooltip={t('Select network')}
         />
     );
@@ -127,18 +140,24 @@ export const ChainSelector = styled(forwardRef(Component))<Props>(({theme: {toke
             justifyContent: 'center'
         },
         '.__render-item': {
+            cursor: 'pointer',
             backgroundColor: token.colorBgSecondary,
             padding: '14px 12px',
             borderRadius: token.borderRadiusLG,
             display: 'flex',
-            '.__render-item-icon': {
-                paddingRight: 12,
-            },
-            '.__render-item-name': {
-                fontSize: 16,
-                lineHeight: 1.5,
-                fontWeight: 600,
-                color: '#fff',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            '.__render-name': {
+                display: 'flex',
+                '.__render-item-icon': {
+                    paddingRight: 12,
+                },
+                '.__render-item-name': {
+                    fontSize: 16,
+                    lineHeight: 1.5,
+                    fontWeight: 600,
+                    color: '#fff',
+                }
             }
         }
     });

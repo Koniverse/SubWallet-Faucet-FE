@@ -2,13 +2,16 @@ import {Icon, InputRef, Button} from '@subwallet/react-ui';
 import {CaretDown, CheckCircle, CopySimple, Plugs} from 'phosphor-react';
 import React, {ForwardedRef, forwardRef, useCallback, useContext, useMemo} from 'react';
 import styled, {useTheme} from 'styled-components';
-import {Theme, ThemeProps} from '../../types';
 import {useTranslation} from "react-i18next";
-import {BaseSelectModal} from "../../components/Modal/BaseSelectModal";
 import AccountItem from "@subwallet/react-ui/es/web3-block/account-item";
 import CopyToClipboard from "react-copy-to-clipboard";
 import {WalletAccount} from "@subwallet/wallet-connect/types";
-import {WalletContext} from "../../providers/WalletContextProvider";
+import {Theme, ThemeProps} from "../types";
+import {WalletContext} from "../providers/WalletContextProvider";
+import {BaseSelectModal} from "./Modal/BaseSelectModal";
+import useNotification from "../hooks/useNotification";
+
+;
 
 interface Props extends ThemeProps {
     loading?: boolean
@@ -17,10 +20,14 @@ interface Props extends ThemeProps {
 function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
     const {t} = useTranslation();
     const {disconnectAccount} = useContext(WalletContext);
+    const notification = useNotification();
     const { token } = useTheme() as Theme;
     const {accounts, walletAccount, setCurrentAddress} = useContext(WalletContext);
     const _onClickCopyButton = useCallback((e: React.SyntheticEvent) => {
         e.stopPropagation();
+        console.log(notification)
+        console.log('copy')
+        notification({message: t('Copied')});
     }, []);
     const _onSelect = useCallback(async (address: string) => {
         setCurrentAddress(address);
@@ -167,5 +174,10 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
             paddingLeft: 12,
             paddingRight: 12
         },
+        '.selected-account': {
+            'ant-web3-block': {
+                width: '100%',
+            }
+        }
     });
 });

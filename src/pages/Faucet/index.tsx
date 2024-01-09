@@ -7,13 +7,13 @@ import React, {useCallback, useContext, useEffect, useMemo, useState} from "reac
 import {AppContext} from "../../providers/AppStateProvider";
 import {OpenSelectWallet, WalletContext} from "../../providers/WalletContextProvider";
 import {Vault} from 'phosphor-react';
-import {ChainSelector} from "./ChainSelector";
 import StatusIcon from "../../components/Icon/StatusIcon";
 import {ResultType, StatusIconEnum} from "../../types/dataType";
 import {StatusModal} from "../../components/Modal/StatusModal";
-import {AccountSelector} from "./AccountSelector";
 import FaucetService from "../../libs/Service/FaucetService";
 import NoteBox from "../../components/Footer/NoteBox";
+import {ChainSelector} from "../../components/ChainSelector";
+import {AccountSelector} from "../../components/AccountSelector";
 
 const RESULT_MODAL = 'result-modal-id';
 const Component = () => {
@@ -66,7 +66,7 @@ const Component = () => {
             title: t('The address hasn’t received PARA from the faucet.'),
         });
         values.push({
-            status: getStatusError(checkAddress.accountReceived),
+            status: getStatusError(checkAddress.accountReceivedNative),
             title: t('The address has 0 PARA.'),
         });
         values.push({
@@ -270,6 +270,7 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
                 justifyContent: 'space-between',
                 '.ant-web3-block': {
                     padding: 0,
+                    width: '100%',
                 }
             }
 

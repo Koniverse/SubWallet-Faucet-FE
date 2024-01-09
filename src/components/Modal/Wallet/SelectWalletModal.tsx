@@ -3,7 +3,7 @@
 
 import {getWalletBySource, getWallets} from '@subwallet/wallet-connect/dotsama/wallets';
 import {getEvmWalletBySource} from '@subwallet/wallet-connect/evm/evmWallets';
-import React, {useCallback, useContext, useMemo} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {OpenSelectWallet, WalletContext} from "../../../providers/WalletContextProvider";
 import {Icon, Image, Modal, SettingItem, SwList} from "@subwallet/react-ui";
 import {useTranslation} from "react-i18next";
@@ -14,6 +14,7 @@ import EmptyList from "../../EmptyList";
 import {Wallet} from '@subwallet/wallet-connect/types';
 import CN from "classnames";
 import {openInNewTab} from "../../../libs";
+import {ConnectModal} from "../ConnectModal";
 
 type ExtensionItemProps = Wallet & {
     type: 'substrate' | 'evm',
@@ -41,8 +42,6 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
     const onSelectWallet = useCallback(
         (walletKey: string, walletType: 'substrate' | 'evm' = 'substrate') => {
             if (walletType === 'substrate') {
-                console.log('walletKey', walletKey)
-                console.log(getWalletBySource(walletKey))
                 walletContext.setWallet(getWalletBySource(walletKey), walletType);
                 openSelectWalletContext.close();
             } else {
@@ -109,6 +108,7 @@ function Component({className}: Props): React.ReactElement<Props> {
     const onRenderItem = useCallback((item: Wallet) => {
         // @ts-ignore
         let type = item.type ?? 'substrate';
+        console.log(item)
         return (
             <ExtensionItem
                 key={item.extensionName}
@@ -129,10 +129,10 @@ function Component({className}: Props): React.ReactElement<Props> {
         );
     }, [t]);
 
-    return <Modal
+    return <ConnectModal
+        id={SELECT_WALLET_MODAL_ID}
         className={CN(className)}
         title={t('Connect wallet')}
-        open={openSelectWalletContext.isOpen}
         onCancel={openSelectWalletContext.close}
         footer={false}
         wrapClassName={'sub-wallet-modal-wrapper'}
@@ -144,7 +144,7 @@ function Component({className}: Props): React.ReactElement<Props> {
             renderWhenEmpty={renderEmptyList}
             rowGap='8px'
         />
-    </Modal>;
+    </ConnectModal>;
 }
 
 const SelectExtensionModal = styled(Component)<Props>(({theme: {token}}: Props) => {

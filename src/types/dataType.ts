@@ -206,6 +206,7 @@ export interface ResultType {
     hasNotReceivedFaucet: boolean,
     accountReceived: boolean,
     accountSent: boolean,
+    accountReceivedNative: boolean,
     validSignature: boolean,
     transaction: boolean,
     txHash: string,
