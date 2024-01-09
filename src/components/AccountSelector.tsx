@@ -10,10 +10,12 @@ import {Theme, ThemeProps} from "../types";
 import {WalletContext} from "../providers/WalletContextProvider";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
 import {toShort} from "@subwallet/react-ui/es/_util/address";
+import GeneralEmptyList from "./GeneralEmptyList";
 
 interface Props extends ThemeProps {
     loading?: boolean
 }
+const renderEmpty = () => <GeneralEmptyList />;
 
 function Component({className}: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
     const {t} = useTranslation();
@@ -90,12 +92,6 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
     const searchAccountFunction = (item: any, searchText: string): boolean => {
         return item.address.toLowerCase().includes(searchText.toLowerCase()) || (item.name || '').toLowerCase().includes(searchText.toLowerCase());
     };
-    const renderEmpty = useCallback((item: any): React.ReactNode => {
-        return (
-            <div className='__render-empty'>
-            </div>
-        );
-    }, []);
     const renderSelectedItem = useCallback((item: WalletAccount): React.ReactNode => {
         return (
             <div className='selected-account'>
@@ -106,6 +102,18 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
                     avatarIdentPrefix={42}
                     avatarSize={24}
                     avatarTheme="polkadot"
+                    middleItem={(
+                        <div className={`account-item-content-wrapper`}>
+                            <div className={'account-item-address-wrapper'}>
+                                <div className="__item-name">
+                                    {item.name}
+                                </div>
+                                <div className="__item-address">
+                                    ({toShort(item.address, 4, 5)})
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 />
                 <CopyToClipboard text={item.address || ''}>
                     <Button
@@ -183,16 +191,12 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
         '&.ant-select-modal-input-container .ant-select-modal-input-wrapper': {
             paddingLeft: 12,
             paddingRight: 12,
-            display: 'none'
         },
         '.ant-web3-block': {
             padding: '6px 4px 6px 12px',
         },
-        '.selected-account': {
-            'ant-web3-block': {
-                width: '100%',
-
-            }
+        '.ant-sw-list-section .ant-sw-list-wrapper .empty-list': {
+            position: 'relative',
         },
         '.account-item-content-wrapper': {
 

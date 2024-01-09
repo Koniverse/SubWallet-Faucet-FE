@@ -11,8 +11,6 @@ export function NotificationProvider({children}: Props) {
   const [notify, contextHolder] = notification.useNotification({
     top: 64
   });
-  console.log(contextHolder)
-  // notify({message: 'test'});/
 
   return <NotificationContext.Provider value={notify}>
     {contextHolder}

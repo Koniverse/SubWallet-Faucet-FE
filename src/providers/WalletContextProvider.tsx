@@ -82,10 +82,7 @@ export function WalletContextProvider({children}: Props) {
     const afterSelectWallet = useCallback(
         async (wallet: Wallet) => {
             const infos = await wallet.getAccounts();
-            // console.log('currentWallet', currentWallet)
-            // console.log('wallet', wallet)
             setCurrentWallet(wallet);
-            console.log('infos', infos)
             infos && setAccounts(infos);
         },
         []
@@ -169,7 +166,7 @@ export function WalletContextProvider({children}: Props) {
                 setWalletAccount(walletAccount);
             }
         }
-        if (!walletAccount && walletAccounts.length > 0 && (!currentAddress || !walletAccounts)) {
+        if (!walletAccount && walletAccounts.length > 0) {
 
                 setCurrentAddress(walletAccounts[0].address);
                 setWalletAccount(walletAccounts[0]);

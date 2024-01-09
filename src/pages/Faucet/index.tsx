@@ -253,7 +253,22 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
 
         },
         '.ant-select-modal-input-wrapper': {
-            height: 52
+            height: 52,
+
+            '.account-item-content-wrapper': {
+
+                '.account-item-address-wrapper': {
+                    display: 'flex',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    lineHeight: '22px',
+                    color: 'rgba(255, 255, 255)',
+
+                    '.__item-address': {
+                        color: 'rgba(255, 255, 255, 0.45)',
+                    }
+                }
+            }
         },
         '.__empty-list': {
             marginTop: token.marginSM,
