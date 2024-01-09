@@ -10,6 +10,9 @@ import {Theme, ThemeProps} from "../types";
 import {WalletContext} from "../providers/WalletContextProvider";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
 import useNotification from "../hooks/useNotification";
+import CN from "classnames";
+import {toShort} from "@subwallet/react-ui/es/_util/address";
+import {it} from "node:test";
 
 ;
 
@@ -17,11 +20,11 @@ interface Props extends ThemeProps {
     loading?: boolean
 }
 
-function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
+function Component({className}: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
     const {t} = useTranslation();
     const {disconnectAccount} = useContext(WalletContext);
     const notification = useNotification();
-    const { token } = useTheme() as Theme;
+    const {token} = useTheme() as Theme;
     const {accounts, walletAccount, setCurrentAddress} = useContext(WalletContext);
     const _onClickCopyButton = useCallback((e: React.SyntheticEvent) => {
         e.stopPropagation();
@@ -43,6 +46,18 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
                     avatarIdentPrefix={42}
                     avatarSize={40}
                     avatarTheme="polkadot"
+                    middleItem={(
+                        <div className={`account-item-content-wrapper`}>
+                            <div className={'account-item-address-wrapper'}>
+                                <div className="__item-name">
+                                    {item.name}
+                                </div>
+                                <div className="__item-address">
+                                    ({toShort(item.address, 4, 5)})
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     renderRightItem={() => {
                         return (
@@ -65,7 +80,7 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
                                             />
                                         }
                                         onClick={_onClickCopyButton}
-                                        size='xs'
+                                        size='sm'
                                         tooltip={t('Copy address')}
                                         type='ghost'
                                     />
@@ -126,7 +141,7 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
                     icon={(
                         <Icon
                             phosphorIcon={Plugs}
-                            size={'xs'}
+                            size={'sm'}
                             weight={'fill'}
 
                         />
@@ -140,7 +155,7 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
     return (
         <BaseSelectModal
             background={'default'}
-            className={'className'}
+            className={className}
             footer={renderFooter}
             fullSizeOnMobile
             id={"modalId"}
@@ -172,11 +187,21 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
     return ({
         '&.ant-select-modal-input-container .ant-select-modal-input-wrapper': {
             paddingLeft: 12,
-            paddingRight: 12
+            paddingRight: 12,
+            display: 'none'
         },
         '.selected-account': {
             'ant-web3-block': {
                 width: '100%',
+            }
+        },
+        '.account-item-content-wrapper': {
+
+            '.account-item-address-wrapper': {
+                display: 'flex',
+                '.__item-address': {
+                    color:  'rgba(255, 255, 255, 0.45)',
+                }
             }
         }
     });

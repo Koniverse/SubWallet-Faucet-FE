@@ -30,15 +30,16 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
     const {token} = useTheme() as Theme;
 
     const leftItemIcon = useMemo(() => {
+        const icon = extensionName === 'polkadot-js' ? 'https://web.subwallet.app/images/projects/polkadot-js.png' : 'https://web.subwallet.app/images/projects/subwallet-gradient.png';
         return (
             <Image
                 height={28}
-                src={logo.src}
+                src={icon}
                 alt={logo.alt}
                 width={28}
             />
         );
-    }, [logo]);
+    }, [logo, extensionName]);
     const onSelectWallet = useCallback(
         (walletKey: string, walletType: 'substrate' | 'evm' = 'substrate') => {
             if (walletType === 'substrate') {
@@ -101,14 +102,13 @@ export const SELECT_WALLET_MODAL_ID = 'select-wallet-modal';
 
 function Component({className}: Props): React.ReactElement<Props> {
     const {t} = useTranslation();
-    const dotsamaWallets = getWallets().filter((wallet) => wallet.extensionName !== "talisman");
+    const dotsamaWallets = getWallets().filter((wallet) => wallet.extensionName !== "talisman").reverse();
     const openSelectWalletContext = useContext(OpenSelectWallet);
 
 
     const onRenderItem = useCallback((item: Wallet) => {
         // @ts-ignore
         let type = item.type ?? 'substrate';
-        console.log(item)
         return (
             <ExtensionItem
                 key={item.extensionName}

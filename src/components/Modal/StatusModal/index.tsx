@@ -42,7 +42,7 @@ function Component({
             title: t('The address hasn’t received PARA from the faucet.'),
         });
         values.push({
-            status: getStatusError(result?.accountReceived || false),
+            status: getStatusError(result?.accountReceivedNative || false),
             title: t('The address has 0 PARA.'),
         });
         values.push({
