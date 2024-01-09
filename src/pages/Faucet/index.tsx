@@ -14,6 +14,7 @@ import FaucetService from "../../libs/Service/FaucetService";
 import NoteBox from "../../components/Footer/NoteBox";
 import {ChainSelector} from "../../components/ChainSelector";
 import {AccountSelector} from "../../components/AccountSelector";
+import {openInNewTab} from "../../libs";
 
 const RESULT_MODAL = 'result-modal-id';
 const Component = () => {
@@ -47,6 +48,7 @@ const Component = () => {
     useEffect(() => {
         setTitle(t('Faucet'));
         setShowBackButtonOnHeader(false);
+        // activeModal(RESULT_MODAL);
     }, [setShowBackButtonOnHeader, setTitle, t]);
 
     const getStatusError = useCallback((status: boolean) => {
@@ -186,7 +188,9 @@ const Component = () => {
                     onClick={() => {
                     }}
                 >
-                    <div className={'__footer-button-content'}>
+                    <div className={'__footer-button-content'} onClick={() => {
+                        openInNewTab('https://earn.subwallet.app/')();
+                    }}>
                         <div className={'__footer-button-title'}>{t('Rewards: 18% - 24%')}</div>
                         <div className={'__footer-button-subtitle'}>{t('Earn with SubWallet Dashboard')}</div>
                     </div>

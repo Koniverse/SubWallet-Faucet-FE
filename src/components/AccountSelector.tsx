@@ -10,9 +10,7 @@ import {Theme, ThemeProps} from "../types";
 import {WalletContext} from "../providers/WalletContextProvider";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
 import useNotification from "../hooks/useNotification";
-import CN from "classnames";
 import {toShort} from "@subwallet/react-ui/es/_util/address";
-import {it} from "node:test";
 
 ;
 

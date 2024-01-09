@@ -32,7 +32,6 @@ function Component({
 
     const contentList = useMemo(() => {
         const values = [];
-        console.log('contentList', result)
         values.push({
             status: getStatusError(result?.accountSent || false),
             title: t('PARA in the faucet is still available.'),
@@ -101,7 +100,7 @@ function Component({
                 <Button
                     block={true}
                     onClick={onCancel}
-                    className={'__button_connect'}
+                    className={'__button'}
                 >
                     {result?.error ? t('I understand') : t('Back to home')}
                 </Button>
@@ -135,7 +134,11 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
             width: 162,
             textAlign: 'right'
         },
-        '.__button_connect svg': {
+        '.__button': {
+          position: 'sticky',
+            bottom: 5,
+        },
+        '.__button svg': {
             marginRight: token.marginSM
         },
         '.__description': {

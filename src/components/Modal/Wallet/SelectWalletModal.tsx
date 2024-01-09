@@ -3,9 +3,9 @@
 
 import {getWalletBySource, getWallets} from '@subwallet/wallet-connect/dotsama/wallets';
 import {getEvmWalletBySource} from '@subwallet/wallet-connect/evm/evmWallets';
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useContext, useMemo} from 'react';
 import {OpenSelectWallet, WalletContext} from "../../../providers/WalletContextProvider";
-import {Icon, Image, Modal, SettingItem, SwList} from "@subwallet/react-ui";
+import {Icon, Image, SettingItem, SwList} from "@subwallet/react-ui";
 import {useTranslation} from "react-i18next";
 import {Theme, ThemeProps} from "../../../types";
 import styled, {useTheme} from "styled-components";
@@ -15,11 +15,14 @@ import {Wallet} from '@subwallet/wallet-connect/types';
 import CN from "classnames";
 import {openInNewTab} from "../../../libs";
 import {ConnectModal} from "../ConnectModal";
+import {isMobile} from "../../../utils/environment";
 
 type ExtensionItemProps = Wallet & {
     type: 'substrate' | 'evm',
     installed: boolean
-
+}
+const openLink = function(url: string) {
+    window.location.replace(url)
 }
 const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) => {
 
@@ -58,24 +61,26 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
     }, [installUrl]);
 
     const _onClick = useCallback(() => {
-        if (installed) {
-            onSelectWallet(extensionName, type);
-            openSelectWalletContext.close()
-        } else {
-            onDownload();
+        if (!isMobile) {
+            if (installed) {
+                onSelectWallet(extensionName, type);
+                openSelectWalletContext.close()
+            } else {
+                onDownload();
+            }
+        }else {
+            const link = 'https://mobile.subwallet.app/browser?url=https%3A%2F%2Fanhnt.sw-faucet.pages.dev%2F';
+            openLink(link);
         }
 
     }, [extensionName, installed, onDownload, onSelectWallet, openSelectWalletContext, type]);
 
-    return (
-        <SettingItem
-            className={'wallet-item'}
-            leftItemIcon={leftItemIcon}
-            name={title}
-            onPressItem={_onClick}
-            key={extensionName}
-            rightItem={(
-                !installed
+    const iconDownload = useMemo(() => {
+        if (isMobile){
+            return '';
+        }
+
+        return !installed
                     ? <Icon
                         className={'__download-icon'}
                         phosphorIcon={DownloadSimple}
@@ -90,8 +95,17 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
                             size='sm'
                             weight='fill'
                         />
-                    )
-            )}
+                    );
+    }, [installed]);
+
+    return (
+        <SettingItem
+            className={'wallet-item'}
+            leftItemIcon={leftItemIcon}
+            name={title}
+            onPressItem={_onClick}
+            key={extensionName}
+            rightItem={iconDownload}
         />
     );
 };
@@ -102,7 +116,13 @@ export const SELECT_WALLET_MODAL_ID = 'select-wallet-modal';
 
 function Component({className}: Props): React.ReactElement<Props> {
     const {t} = useTranslation();
-    const dotsamaWallets = getWallets().filter((wallet) => wallet.extensionName !== "talisman").reverse();
+
+    const dotsamaWallets = useMemo(() => {
+        if (isMobile) {
+            return getWallets().filter((wallet) => wallet.extensionName === "subwallet-js").reverse();
+        }
+        return getWallets().filter((wallet) => wallet.extensionName !== "talisman").reverse();
+    }, []);
     const openSelectWalletContext = useContext(OpenSelectWallet);
 
 
