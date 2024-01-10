@@ -16,12 +16,13 @@ import CN from "classnames";
 import {openInNewTab} from "../../../libs";
 import {ConnectModal} from "../ConnectModal";
 import {isMobile} from "../../../utils/environment";
+import {sendEventGA} from "../../../utils";
 
 type ExtensionItemProps = Wallet & {
     type: 'substrate' | 'evm',
     installed: boolean
 }
-const openLink = function(url: string) {
+const openLink = function (url: string) {
     window.location.replace(url)
 }
 const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) => {
@@ -68,13 +69,16 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
             const link = 'https://mobile.subwallet.app/browser?url=http%3A%2F%2Ffaucet.subwallet.app%2F';
             openLink(link);
         } else {
+            if (extensionName === 'subwallet-js') {
+                sendEventGA('installSubWallet');
+            }
             onDownload();
         }
 
     }, [extensionName, installed, onDownload, onSelectWallet, openSelectWalletContext, type]);
 
     const iconDownload = useMemo(() => {
-        if (isMobile){
+        if (isMobile) {
             return '';
         }
         if (!installed) {

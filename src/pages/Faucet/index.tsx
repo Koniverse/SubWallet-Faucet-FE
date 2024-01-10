@@ -15,6 +15,7 @@ import NoteBox from "../../components/Footer/NoteBox";
 import {ChainSelector} from '../../components/ChainSelector';
 import {AccountSelector} from '../../components/AccountSelector';
 import {openInNewTab} from "../../libs";
+import {sendEventGA} from "../../utils";
 
 const RESULT_MODAL = 'result-modal-id';
 const Component = () => {
@@ -62,6 +63,7 @@ const Component = () => {
             return;
         }
         setSubmitLoading(true);
+        sendEventGA('faucetClick');
         const isSign = currentSignature === undefined || currentSignature === '';
         let newSignature: string | null = currentSignature || '';
         if (isSign) {
@@ -80,9 +82,11 @@ const Component = () => {
         let extension = walletAccount.source === 'polkadot' ? 'polkadot-js' : 'subwallet';
         if (newSignature) {
             try {
-
                 const response = await FaucetService.submit(walletAccount.address, newSignature, extension) as unknown as ResultType;
                 setResult({...response, error: false});
+                if (response.transaction){
+                    sendEventGA('faucetReceive');
+                }
                 activeModal(RESULT_MODAL);
             } catch (e) {
                 setResult({
@@ -165,6 +169,7 @@ const Component = () => {
                     }
                 >
                     <div className={'__footer-button-content'} onClick={() => {
+                        sendEventGA('redirectToEarn')
                         openInNewTab('https://earn.subwallet.app/')();
                     }}>
                         <div className={'__footer-button-title'}>{t('Rewards: 18% - 24%')}</div>
