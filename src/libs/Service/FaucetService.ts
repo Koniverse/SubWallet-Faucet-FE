@@ -3,8 +3,8 @@ import axiosClient from "../axiosClient";
 
 class FaucetService extends BaseService{
     path = () => 'chains';
-    public async getCheckAddress(address: string) {
-        const response = await axiosClient.post('/faucet/check-faucet', {address});
+    public async getRandomCode(address: string) {
+        const response = await axiosClient.post('/user/get-code', {address});
         return response;
     }
     public async submit(address: string, signature: string, extension: string) {
