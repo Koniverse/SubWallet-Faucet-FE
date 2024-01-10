@@ -65,7 +65,7 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
             onSelectWallet(extensionName, type);
             openSelectWalletContext.close()
         } else if (isMobile) {
-            const link = 'https://mobile.subwallet.app/browser?url=https%3A%2F%2Fdev.sw-faucet.pages.dev';
+            const link = 'https://mobile.subwallet.app/browser?url=http%3A%2F%2Ffaucet.subwallet.app%2F';
             openLink(link);
         } else {
             onDownload();
