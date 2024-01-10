@@ -10,6 +10,7 @@ import {ModalContext} from "@subwallet/react-ui";
 import {useLocalStorage} from "../hooks/useLocalStorage";
 import {openLink, windowReload} from "../utils/window";
 import {isMobile} from "../utils/environment";
+import ConnectErrorModal, {SELECT_WALLET_MODAL_ERROR_ID} from "../components/Modal/Wallet/ConnectErrorModal";
 
 export interface WalletContextInterface {
     wallet?: Wallet,
@@ -91,11 +92,21 @@ export function WalletContextProvider({children}: Props) {
 
     const selectWallet = useCallback(
         async (wallet: Wallet) => {
-            setCurrentWallet(currentWallet);
-            await wallet.enable();
-            setWalletKey(wallet.extensionName);
-
-            await afterSelectWallet(wallet);
+            try {
+                setCurrentWallet(currentWallet);
+                // @ts-ignore
+                if (wallet.rawExtension){
+                    // @ts-ignore
+                    await wallet.rawExtension.enable();
+                }else {
+                    await wallet.enable();
+                }
+                setWalletKey(wallet.extensionName);
+                await afterSelectWallet(wallet);
+            }catch (e) {
+                console.log(e)
+                activeModal(SELECT_WALLET_MODAL_ERROR_ID);
+            }
         },
         [afterSelectWallet, currentWallet, setWalletKey]
     );
@@ -179,7 +190,7 @@ export function WalletContextProvider({children}: Props) {
         accounts,
         setWallet: (wallet: Wallet | EvmWallet | undefined, walletType: 'substrate' | 'evm') => {
             if (walletType === 'substrate') {
-                wallet && selectWallet(wallet as Wallet);
+                wallet && selectWallet(wallet as Wallet)
             } else {
                 wallet && selectEvmWallet(wallet as EvmWallet);
             }
@@ -252,6 +263,7 @@ export function WalletContextProvider({children}: Props) {
     return <WalletContext.Provider value={walletContext as WalletContextInterface}>
         <OpenSelectWallet.Provider value={selectWalletContext}>
             {children}
+            <ConnectErrorModal/>
         </OpenSelectWallet.Provider>
     </WalletContext.Provider>;
 }

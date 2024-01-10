@@ -52,22 +52,18 @@ function Component({
     }, [t, result, getStatusError]);
     const description = useMemo(() => {
         let description = t('You are not eligible to receive PARA from the faucet. \n' +
-                            'Try again with a different wallet address.');
-        if (!result?.transaction && result?.error){
+            'Try again with a different wallet address.');
+        if (!result?.transaction && result?.error) {
             description = t('The faucet is overloaded at the moment. \n' +
                 'Try again later.')
         }
-        if (result?.transaction){
+        if (result?.transaction) {
             description = t('You have received 1 PARA to your wallet address.\n');
             description += `<a href="${getLinkTransaction(result?.txHash)}" target="_blank">${t('View the transaction')}</a>`;
             description += t(' or check PARA in your wallet.')
         }
         return description;
     }, [t, result]);
-
-    const isShowListError = useMemo(() => {
-        return !result?.transaction && !result?.error;
-    }, [result]);
 
 
     return (
@@ -83,7 +79,7 @@ function Component({
                 <div className="__center">
                     <div>
                         <StatusIcon status={result?.transaction ? StatusIconEnum.SUCCESS : StatusIconEnum.FAIL}
-                                size={StatusSize.LARGE} className={'flex'}/>
+                                    size={StatusSize.LARGE} className={'flex'}/>
                     </div>
                     <div className="__description" dangerouslySetInnerHTML={{__html: description}}>
                     </div>
@@ -105,16 +101,13 @@ function Component({
                         </div>}
                 </div>
             </div>
-            <div className={'__button-staxxtus'}/>
-
-
-                <Button
-                    block={true}
-                    onClick={onCancel}
-                    className={'__button'}
-                >
-                    {result?.error ? t('I understand') : t('Back to home')}
-                </Button>
+            <Button
+                block={true}
+                onClick={onCancel}
+                className={'__button'}
+            >
+                {result?.error ? t('I understand') : t('Back to home')}
+            </Button>
         </BaseModal>
     );
 }
@@ -128,8 +121,6 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginBottom: token.marginSM,
-                // maxHeight: 250,
-                // overflow: 'auto',
             }
         },
 
@@ -150,7 +141,7 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
             textAlign: 'right'
         },
         '.__button': {
-          position: 'sticky',
+            position: 'sticky',
             bottom: 5,
         },
         '.__button svg': {
