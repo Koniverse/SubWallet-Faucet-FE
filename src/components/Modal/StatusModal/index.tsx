@@ -65,6 +65,10 @@ function Component({
         return description;
     }, [t, result]);
 
+    const isShowListError = useMemo(() => {
+        return !result?.transaction && !result?.error;
+    }, [result]);
+
 
     return (
         <BaseModal
@@ -100,6 +104,9 @@ function Component({
                             })}
                         </div>}
                 </div>
+            </div>
+            <div className={'__button-staxxtus'}/>
+
 
                 <Button
                     block={true}
@@ -108,7 +115,6 @@ function Component({
                 >
                     {result?.error ? t('I understand') : t('Back to home')}
                 </Button>
-            </div>
         </BaseModal>
     );
 }
@@ -175,6 +181,14 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
                 fontWeight: 600,
                 lineHeight: '22px',
                 color: 'rgba(255, 255, 255, 0.65)',
+            }
+        },
+
+
+        '@media (max-height: 755px)': {
+            '.__container': {
+                height: '90%',
+                overflow: 'auto',
             }
         },
     });

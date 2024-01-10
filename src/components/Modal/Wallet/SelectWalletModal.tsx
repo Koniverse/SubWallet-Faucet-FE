@@ -69,7 +69,7 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
                 onDownload();
             }
         }else {
-            const link = 'https://mobile.subwallet.app/browser?url=https%3A%2F%2Fdev.sw-faucet.pages.dev%2F';
+            const link = 'https://mobile.subwallet.app/browser?url=https%3A%2F%2Fdev.sw-faucet.pages.dev';
             openLink(link);
         }
 
