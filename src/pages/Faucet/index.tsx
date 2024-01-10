@@ -12,8 +12,8 @@ import {ResultType, StatusIconEnum} from "../../types/dataType";
 import {StatusModal} from "../../components/Modal/StatusModal";
 import FaucetService from "../../libs/Service/FaucetService";
 import NoteBox from "../../components/Footer/NoteBox";
-import {ChainSelector} from "../../components/ChainSelector";
-import {AccountSelector} from "../../components/AccountSelector";
+import {ChainSelector} from '../../components/ChainSelector';
+import {AccountSelector} from '../../components/AccountSelector';
 import {openInNewTab} from "../../libs";
 
 const RESULT_MODAL = 'result-modal-id';
@@ -109,7 +109,7 @@ const Component = () => {
 
                 <div className="__content-area">
                     <div className="__content-area-title">
-                        {t('Eligibility criteria?')}
+                        {t('Eligibility criteria')}
                     </div>
                     {contentList.map((item, index) => {
                         return (
