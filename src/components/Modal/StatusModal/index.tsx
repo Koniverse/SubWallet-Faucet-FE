@@ -122,8 +122,8 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginBottom: token.marginSM,
-                maxHeight: 250,
-                overflow: 'auto',
+                // maxHeight: 250,
+                // overflow: 'auto',
             }
         },
 
