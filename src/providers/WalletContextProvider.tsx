@@ -203,8 +203,18 @@ export function WalletContextProvider({children}: Props) {
         isOpen: isSelectWallet,
         open: () => {
             if (isMobile) {
-                const link = 'https://mobile.subwallet.app/browser?url=http%3A%2F%2Ffaucet.subwallet.app%2F';
-                openLink(link);
+                const subwallet = getWalletBySource('subwallet-js');
+                if (subwallet) {
+                    setIsSelectWallet(true);
+                    selectWallet(subwallet)
+                      .catch(console.error)
+                      .finally(() => {
+                          setIsSelectWallet(false);
+                      });
+                } else {
+                    const link = 'https://mobile.subwallet.app/browser?url=http%3A%2F%2Ffaucet.subwallet.app%2F';
+                    openLink(link);
+                }
             } else {
                 activeModal(SELECT_WALLET_MODAL_ID);
                 setIsSelectWallet(true);
