@@ -17,7 +17,6 @@ import {AccountSelector} from "../../components/AccountSelector";
 import {openInNewTab} from "../../libs";
 
 const RESULT_MODAL = 'result-modal-id';
-const SIGNATURE_RANDOM_CODE = 'randomCode';
 const Component = () => {
     const {t} = useTranslation();
     const {activeModal, inactiveModal} = useContext(ModalContext);
@@ -67,7 +66,10 @@ const Component = () => {
         let newSignature: string | null = currentSignature || '';
         if (isSign) {
             try {
-                newSignature = await signMessage(walletAccount.address, SIGNATURE_RANDOM_CODE);
+                const dataRandom = await FaucetService.getRandomCode(walletAccount.address);
+                // @ts-ignore
+                const {randomCode} = dataRandom;
+                newSignature = await signMessage(walletAccount.address, randomCode);
                 if (newSignature != null) {
                     setCurrentSignature(newSignature);
                 }
@@ -78,6 +80,7 @@ const Component = () => {
         let extension = walletAccount.source === 'polkadot' ? 'polkadot-js' : 'subwallet';
         if (newSignature) {
             try {
+
                 const response = await FaucetService.submit(walletAccount.address, newSignature, extension) as unknown as ResultType;
                 setResult({...response, error: false});
                 activeModal(RESULT_MODAL);
