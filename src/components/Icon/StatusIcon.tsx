@@ -91,6 +91,10 @@ const Component: React.FC<Props> = ({className, status, size}: Props) => {
 };
 const StatusIcon = styled(Component)<Props>(({theme: {token}}: Props) => {
     return ({
+        '&.flex': {
+            display: 'flex',
+            margin: '0 auto',
+        },
         '&.__item-icon-button': {
 
             borderRadius: '50%',

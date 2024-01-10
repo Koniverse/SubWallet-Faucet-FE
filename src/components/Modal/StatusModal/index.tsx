@@ -74,9 +74,13 @@ function Component({
             title={result?.transaction ? t('Success!') : t('Error!')}
         >
             <div className={'__container'}>
+
+
                 <div className="__center">
-                    <StatusIcon status={result?.transaction ? StatusIconEnum.SUCCESS : StatusIconEnum.FAIL}
-                                size={StatusSize.LARGE}/>
+                    <div>
+                        <StatusIcon status={result?.transaction ? StatusIconEnum.SUCCESS : StatusIconEnum.FAIL}
+                                size={StatusSize.LARGE} className={'flex'}/>
+                    </div>
                     <div className="__description" dangerouslySetInnerHTML={{__html: description}}>
                     </div>
                     {!result?.transaction && !result?.error &&
@@ -117,7 +121,9 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                marginBottom: token.marginSM
+                marginBottom: token.marginSM,
+                maxHeight: 250,
+                overflow: 'auto',
             }
         },
 
@@ -125,6 +131,9 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
             display: 'flex',
             justifyContent: 'space-between',
             marginBottom: token.marginSM
+        },
+        '.__button-status': {
+            display: 'flex',
         },
 
         '.__label': {
