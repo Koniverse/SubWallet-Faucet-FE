@@ -61,16 +61,14 @@ const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) 
     }, [installUrl]);
 
     const _onClick = useCallback(() => {
-        if (!isMobile) {
-            if (installed) {
-                onSelectWallet(extensionName, type);
-                openSelectWalletContext.close()
-            } else {
-                onDownload();
-            }
-        }else {
+        if (installed) {
+            onSelectWallet(extensionName, type);
+            openSelectWalletContext.close()
+        } else if (isMobile) {
             const link = 'https://mobile.subwallet.app/browser?url=https%3A%2F%2Fdev.sw-faucet.pages.dev';
             openLink(link);
+        } else {
+            onDownload();
         }
 
     }, [extensionName, installed, onDownload, onSelectWallet, openSelectWalletContext, type]);
