@@ -7,8 +7,6 @@ import ParallelLogo from "./Logo/ParallelLogo";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
 import {CheckCircle} from "phosphor-react";
 
-;
-
 interface Props extends ThemeProps {
     loading?: boolean
 }
@@ -47,9 +45,7 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
 
         return (
             <>
-                <div className="__selected-icon">
-
-                </div>
+                <div className="__selected-icon"/>
                 <div className={'__selected-item'}>{item.name}</div>
             </>
         );

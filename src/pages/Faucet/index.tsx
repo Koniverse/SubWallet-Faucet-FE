@@ -102,7 +102,7 @@ const Component = () => {
         <>
             <div className="body-area">
                 <ChainSelector className={'__chain_selector'}/>
-                {accounts.length > 0 && <AccountSelector/>}
+                {accounts.length > 0 && <AccountSelector className={'__account_selector'}/>}
 
                 <div className="__content-area">
                     <div className="__content-area-title">
@@ -241,6 +241,9 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
             },
             '.__chain_selector': {
                 marginBottom: 16,
+            },
+            '.__account_selector': {
+
             },
             '.selected-account': {
                 display: 'flex',

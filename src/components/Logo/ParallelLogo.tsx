@@ -2,43 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
+import {Image} from "@subwallet/react-ui";
 
 const ParallelLogo: React.FC = () => {
     return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{
-            background: 'white',
-            borderRadius: '50%',
-        }}>
-            <mask id="mask0_15647_14240" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
-                  height="24">
-                <path
-                    d="M12 0C21.0995 0 24 2.90053 24 12C24 21.0995 21.0995 24 12 24C2.90052 24 0 21.0995 0 12C0 2.90053 2.90052 0 12 0Z"
-                    fill="#004BFF"/>
-            </mask>
-            <g mask="url(#mask0_15647_14240)">
-                <rect width="24" height="24" fill="white"/>
-            </g>
-            <path
-                d="M3.49342 13.4265C3.49052 13.4249 3.49052 13.4219 3.49341 13.4203L6.13905 11.9618C6.14127 11.9606 6.14446 11.9606 6.14667 11.9619L12.1129 15.2688C12.1151 15.27 12.1183 15.27 12.1205 15.2688L17.98 11.9898C17.9821 11.9886 17.9853 11.9886 17.9875 11.9898L20.6197 13.4203C20.6226 13.422 20.6226 13.4249 20.6198 13.4266L12.1401 18.2038C12.1379 18.2051 12.1346 18.2051 12.1324 18.2038L3.49342 13.4265Z"
-                fill="url(#paint0_linear_15647_14240)"/>
-            <path
-                d="M3.47584 10.3076C3.47288 10.306 3.47295 10.3029 3.47599 10.3014L12.1148 5.84263C12.117 5.84151 12.12 5.84152 12.1222 5.84265L20.6018 10.3014C20.6047 10.3029 20.6048 10.3059 20.6019 10.3076L12.1223 15.0849C12.1201 15.0861 12.1169 15.0861 12.1146 15.0849L3.47584 10.3076Z"
-                fill="url(#paint1_linear_15647_14240)"/>
-            <defs>
-                <linearGradient id="paint0_linear_15647_14240" x1="7.77032" y1="10.5467" x2="15.774" y2="18.7617"
-                                gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#DD75A6"/>
-                    <stop offset="1" stopColor="#F2B05B"/>
-                </linearGradient>
-                <linearGradient id="paint1_linear_15647_14240" x1="7.77036" y1="7.43757" x2="13.0434" y2="15.3472"
-                                gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#6F73F6"/>
-                    <stop offset="1" stopColor="#D975A9"/>
-                </linearGradient>
-            </defs>
-        </svg>
-
-
+      <Image
+            alt={'Parallel'}
+            className={'chain-logo'}
+            src={'data:image/png;base64,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\n'}
+            width={24}
+        />
     );
 };
 

@@ -11,6 +11,7 @@ import {WalletContext} from "../providers/WalletContextProvider";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
 import {toShort} from "@subwallet/react-ui/es/_util/address";
 import GeneralEmptyList from "./GeneralEmptyList";
+import CN from "classnames";
 
 interface Props extends ThemeProps {
     loading?: boolean
@@ -158,7 +159,8 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
     return (
         <BaseSelectModal
             background={'default'}
-            className={className}
+            className={CN([className, 'account-selector-modal'])}
+            inputClassName={CN([className, 'account-selector-input'])}
             footer={renderFooter}
             fullSizeOnMobile
             id={"modalId"}
@@ -198,8 +200,10 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
         '.ant-sw-list-section .ant-sw-list-wrapper .empty-list': {
             position: 'relative',
         },
+        '.ant-account-item:hover': {
+            backgroundColor: 'transparent'
+        },
         '.account-item-content-wrapper': {
-
             '.account-item-address-wrapper': {
                 display: 'flex',
                 fontSize: '14px',
