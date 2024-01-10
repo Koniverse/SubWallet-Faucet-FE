@@ -3,7 +3,6 @@ node_modules/
 .cache/
 build/
 .env
-yarn.lock
 
 # Yarn 3 files
 .pnp.*
