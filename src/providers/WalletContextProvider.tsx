@@ -8,7 +8,8 @@ import React, {useCallback, useContext, useEffect, useState} from "react";
 import {SELECT_WALLET_MODAL_ID} from "../components/Modal/Wallet/SelectWalletModal";
 import {ModalContext} from "@subwallet/react-ui";
 import {useLocalStorage} from "../hooks/useLocalStorage";
-import {windowReload} from "../utils/window";
+import {openLink, windowReload} from "../utils/window";
+import {isMobile} from "../utils/environment";
 
 export interface WalletContextInterface {
     wallet?: Wallet,
@@ -167,9 +168,8 @@ export function WalletContextProvider({children}: Props) {
             }
         }
         if (!walletAccount && walletAccounts.length > 0) {
-
-                setCurrentAddress(walletAccounts[0].address);
-                setWalletAccount(walletAccounts[0]);
+            setCurrentAddress(walletAccounts[0].address);
+            setWalletAccount(walletAccounts[0]);
         }
     }, [currentAddress, accounts, setCurrentAddress]);
 
@@ -202,8 +202,13 @@ export function WalletContextProvider({children}: Props) {
     const selectWalletContext = {
         isOpen: isSelectWallet,
         open: () => {
-            activeModal(SELECT_WALLET_MODAL_ID);
-            setIsSelectWallet(true);
+            if (isMobile) {
+                const link = 'https://mobile.subwallet.app/browser?url=http%3A%2F%2Ffaucet.subwallet.app%2F';
+                openLink(link);
+            } else {
+                activeModal(SELECT_WALLET_MODAL_ID);
+                setIsSelectWallet(true);
+            }
         },
         close: () => {
             inactiveModal(SELECT_WALLET_MODAL_ID);

@@ -17,14 +17,13 @@ import {openInNewTab} from "../../../libs";
 import {ConnectModal} from "../ConnectModal";
 import {isMobile} from "../../../utils/environment";
 import {sendEventGA} from "../../../utils";
+import {openLink} from "../../../utils/window";
 
 type ExtensionItemProps = Wallet & {
     type: 'substrate' | 'evm',
     installed: boolean
 }
-const openLink = function (url: string) {
-    window.location.replace(url)
-}
+
 const ExtensionItem: React.FC<ExtensionItemProps> = (props: ExtensionItemProps) => {
 
     const openSelectWalletContext = useContext(OpenSelectWallet);

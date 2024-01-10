@@ -4,3 +4,7 @@
 export function windowReload () {
   window.location.reload();
 }
+
+export function openLink (url: string) {
+    window.location.replace(url)
+}
