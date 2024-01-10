@@ -2,8 +2,7 @@ name: Cloudflare Pages Deployment
 on:
   push:
     branches:
-      - anhnt
-      - dev
+      - main
 
 jobs:
   master:
@@ -23,7 +22,7 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo REACT_APP_API_URL=https://airdrop-be-test.subwallet.app/api >> .env
+          echo REACT_APP_API_URL=https://airdrop-be.subwallet.app/api >> .env
           echo GENERATE_SOURCEMAP=false >> .env
       - name: Build
         run: |
@@ -37,6 +36,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: 'sw-faucet'
           gitHubToken: ${{ secrets.GH_AUTOMATION_TOKEN }}
-          branch: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.ref_name }}
+          branch: 'main'
           directory: './build'
           wranglerVersion: '3'
