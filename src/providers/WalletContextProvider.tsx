@@ -223,8 +223,9 @@ export function WalletContextProvider({children}: Props) {
                           setIsSelectWallet(false);
                       });
                 } else {
-                    const link = 'https://mobile.subwallet.app/browser?url=http%3A%2F%2Ffaucet.subwallet.app%2F';
-                    openLink(link);
+                    const encodedURL = encodeURI(window.location.href);
+
+                    openLink(`https://mobile.subwallet.app/browser?url=${encodedURL}`);
                 }
             } else {
                 activeModal(SELECT_WALLET_MODAL_ID);

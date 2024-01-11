@@ -141,6 +141,13 @@ const Simple = styled(Component)<Props>(({theme: {token}}: Props) => ({
         position: 'relative',
         zIndex: 5,
         right: -16
+    },
+
+    '@media (max-width: 767px)': {
+        '.__title': {
+            fontSize: token.fontSizeHeading4,
+            lineHeight: token.lineHeightHeading4
+        },
     }
 }));
 
