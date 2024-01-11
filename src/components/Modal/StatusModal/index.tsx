@@ -76,6 +76,15 @@ function Component({
             id={id}
             onCancel={onCancel}
             title={result?.transaction ? t('Success!') : t('Error!')}
+            footer={(
+                <Button
+                    block={true}
+                    onClick={onCancel}
+                    className={'__button'}
+                >
+                    {result?.error ? t('I understand') : t('Back to home')}
+                </Button>
+            )}
         >
             <div className={CN('__container', isShowContent ? '__list_error': '')}>
 
@@ -105,13 +114,6 @@ function Component({
                         </div>}
                 </div>
             </div>
-            <Button
-                block={true}
-                onClick={onCancel}
-                className={'__button'}
-            >
-                {result?.error ? t('I understand') : t('Back to home')}
-            </Button>
         </BaseModal>
     );
 }
@@ -119,12 +121,11 @@ function Component({
 export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) => {
     return ({
         '.__container': {
-            padding: '12px 12px 4px',
+            paddingTop: 12,
             '.__center': {
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                marginBottom: token.marginSM,
+                alignItems: 'center'
             }
         },
 
@@ -144,10 +145,6 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
             width: 162,
             textAlign: 'right'
         },
-        '.__button': {
-            position: 'sticky',
-            bottom: 5,
-        },
         '.__button svg': {
             marginRight: token.marginSM
         },
@@ -160,8 +157,14 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
             color: 'rgba(255, 255, 255, 0.4)',
             textAlign: 'center',
         },
+
+        '.__content': {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12
+        },
+
         '.__content-area-title': {
-            marginBottom: 19,
             fontSize: 16,
             fontWeight: 600,
             lineHeight: '24px',
@@ -169,7 +172,6 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
         },
         '.__content-area-subtitle': {
             display: 'flex',
-            marginBottom: 19,
             '.__content-area-subtitle-text': {
                 marginLeft: 8,
                 fontSize: 14,
@@ -179,13 +181,8 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
             }
         },
 
-
-        '@media (max-height: 755px)': {
-            '.__container.__list_error': {
-                height: '80%',
-                overflow: 'auto',
-                marginBottom: 16,
-            }
+        '.ant-sw-modal-footer': {
+            borderTop: 0
         },
     });
 });
