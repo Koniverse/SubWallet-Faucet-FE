@@ -180,7 +180,7 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
             suffix={
                 <Icon
                     phosphorIcon={CaretDown}
-                    weight={'bold'}
+                    customSize={'20px'}
                 />
             }
             title={t('Select account')}
@@ -203,16 +203,23 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
         '.ant-account-item:hover': {
             backgroundColor: 'transparent'
         },
-        '.account-item-content-wrapper': {
-            '.account-item-address-wrapper': {
-                display: 'flex',
-                fontSize: '14px',
-                fontWeight: 600,
-                lineHeight: '22px',
+        '.account-item-address-wrapper': {
+            display: 'flex',
+            fontSize: '14px',
+            fontWeight: 600,
+            lineHeight: '22px',
+            overflow: 'hidden',
+            'white-space': 'nowrap',
+            paddingRight: token.paddingXS,
+            gap: token.sizeXXS,
 
-                '.__item-address': {
-                    color: 'rgba(255, 255, 255, 0.45)',
-                }
+            '.__item-name': {
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+            },
+
+            '.__item-address': {
+                color: 'rgba(255, 255, 255, 0.45)',
             }
         }
     });

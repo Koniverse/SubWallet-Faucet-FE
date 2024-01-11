@@ -77,7 +77,6 @@ const StyledLayout = styled('div')<ThemeProps>(({theme: {extendToken, token}}: T
         '.web-layout-content': {
             flex: 1,
             margin: '0 auto',
-            width: '90%',
             height: '100%',
             overflow: 'auto',
         },

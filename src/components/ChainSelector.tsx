@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Theme, ThemeProps} from "../types";
 import ParallelLogo from "./Logo/ParallelLogo";
 import {BaseSelectModal} from "./Modal/BaseSelectModal";
-import {CheckCircle} from "phosphor-react";
+import {CaretDown, CheckCircle} from "phosphor-react";
 
 interface Props extends ThemeProps {
     loading?: boolean
@@ -98,7 +98,13 @@ function Component(props: Props, ref: ForwardedRef<InputRef>): React.ReactElemen
             renderWhenEmpty={renderEmpty}
             selected={value || ''}
             title={t('Select network')}
-            tooltip={t('Select network')}
+            suffix={
+                <Icon
+                    phosphorIcon={CaretDown}
+                    customSize={'20px'}
+                    iconColor={token.colorTextLight3}
+                />
+            }
         />
     );
 }
