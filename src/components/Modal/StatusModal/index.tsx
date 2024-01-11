@@ -6,6 +6,7 @@ import {ThemeProps} from "../../../types";
 import {ResultType, StatusIconEnum} from "../../../types/dataType";
 import {BaseModal} from "../BaseModal";
 import StatusIcon, {StatusSize} from "../../Icon/StatusIcon";
+import CN from "classnames";
 
 const getLinkTransaction = (transaction: string) => {
     return `https://parallel.subscan.io/extrinsic/${transaction}`;
@@ -64,6 +65,9 @@ function Component({
         }
         return description;
     }, [t, result]);
+    const isShowContent = useMemo(() => {
+        return !result?.transaction && !result?.error;
+    }, [result]);
 
 
     return (
@@ -73,7 +77,7 @@ function Component({
             onCancel={onCancel}
             title={result?.transaction ? t('Success!') : t('Error!')}
         >
-            <div className={'__container'}>
+            <div className={CN('__container', isShowContent ? '__list_error': '')}>
 
 
                 <div className="__center">
@@ -83,7 +87,7 @@ function Component({
                     </div>
                     <div className="__description" dangerouslySetInnerHTML={{__html: description}}>
                     </div>
-                    {!result?.transaction && !result?.error &&
+                    {isShowContent &&
                         <div className="__content">
                             <div className="__content-area-title">
                                 {t('Eligibility check?')}
@@ -177,9 +181,10 @@ export const StatusModal = styled(Component)<Props>(({theme: {token}}: Props) =>
 
 
         '@media (max-height: 755px)': {
-            '.__container': {
-                height: '90%',
+            '.__container.__list_error': {
+                height: '80%',
                 overflow: 'auto',
+                marginBottom: 16,
             }
         },
     });

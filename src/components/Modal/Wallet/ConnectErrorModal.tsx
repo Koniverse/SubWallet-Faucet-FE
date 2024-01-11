@@ -57,6 +57,9 @@ const SelectExtensionModal = styled(Component)<Props>(({theme: {token}}: Props) 
     return {
         '.__button': {
             backgroundColor: '#1A1A1A',
+            '&:hover': {
+                background: 'rgba(54, 54, 54, 1)'
+            },
         },
         '.wallet-content': {
             display: 'flex',
