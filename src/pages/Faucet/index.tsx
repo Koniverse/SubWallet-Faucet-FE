@@ -381,6 +381,10 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
                 '.ant-btn': {
                     minWidth: '100%'
                 }
+            },
+
+            '.body-area': {
+                paddingBottom: 104
             }
         },
 
