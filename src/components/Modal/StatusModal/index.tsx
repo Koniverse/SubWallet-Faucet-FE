@@ -99,7 +99,7 @@ function Component({
                     {isShowContent &&
                         <div className="__content">
                             <div className="__content-area-title">
-                                {t('Eligibility check?')}
+                                {t('Eligibility check')}
                             </div>
                             {contentList.map((item, index) => {
                                 return (
