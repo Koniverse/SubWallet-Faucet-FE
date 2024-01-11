@@ -44,6 +44,7 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
                     avatarIdentPrefix={42}
                     avatarSize={24}
                     avatarTheme="polkadot"
+                    className={'account-item'}
                     middleItem={(
                         <div className={`account-item-content-wrapper`}>
                             <div className={'account-item-address-wrapper'}>
@@ -60,14 +61,17 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
                     renderRightItem={() => {
                         return (
                             <>
-                                {isSelected && <Icon
-                                    iconColor={token.colorSuccess}
-                                    phosphorIcon={CheckCircle}
-                                    size='sm'
-                                    type='phosphor'
-                                    weight='fill'
-                                />
-                                }
+                                {isSelected && (
+                                    <div className={'__check-icon'}>
+                                        <Icon
+                                            iconColor={token.colorSuccess}
+                                            phosphorIcon={CheckCircle}
+                                            size='sm'
+                                            type='phosphor'
+                                            weight='fill'
+                                        />
+                                    </div>
+                                )}
                                 <CopyToClipboard text={item.address}>
                                     <Button
                                         className='-show-on-hover'
@@ -78,7 +82,7 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
                                             />
                                         }
                                         onClick={_onClickCopyButton}
-                                        size='sm'
+                                        size='xs'
                                         tooltip={t('Copy address')}
                                         type='ghost'
                                     />
@@ -197,12 +201,26 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
         '.ant-web3-block': {
             padding: '6px 4px 6px 12px',
         },
-        '.ant-sw-list-section .ant-sw-list-wrapper .empty-list': {
-            position: 'relative',
-        },
         '.ant-account-item:hover': {
             backgroundColor: 'transparent'
         },
+
+        '.account-item': {
+            '.ant-web3-block-right-item': {
+                marginRight: 4
+            },
+
+            '.__check-icon': {
+                minWidth: 40,
+                display: 'flex',
+                justifyContent: 'center'
+            },
+
+            '&:hover': {
+                backgroundColor: token.colorBgInput
+            }
+        },
+
         '.account-item-address-wrapper': {
             display: 'flex',
             fontSize: '14px',
@@ -221,6 +239,12 @@ export const AccountSelector = styled(forwardRef(Component))<Props>(({theme: {to
             '.__item-address': {
                 color: 'rgba(255, 255, 255, 0.45)',
             }
+        },
+
+        '@media (min-width: 768px)': {
+            '.ant-sw-list-section .ant-sw-list-wrapper .empty-list': {
+                position: 'relative',
+            },
         }
     });
 });

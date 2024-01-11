@@ -52,7 +52,8 @@ const StyledLayout = styled('div')<ThemeProps>(({theme: {extendToken, token}}: T
 
         '&.web-layout-container': {
             // display: 'flex',
-            minHeight: '100%',
+            height: '100%',
+            overflow: 'hidden'
             // flexDirection: 'column'
         },
 

@@ -88,7 +88,7 @@ function Component({
 }
 
 const Simple = styled(Component)<Props>(({theme: {token}}: Props) => ({
-    padding: '24px 24px 48px',
+    padding: '24px 24px',
     '.__logo': {
         color: '#ffffff'
     },
@@ -144,6 +144,8 @@ const Simple = styled(Component)<Props>(({theme: {token}}: Props) => ({
     },
 
     '@media (max-width: 767px)': {
+        padding: '8px 16px',
+
         '.__title': {
             fontSize: token.fontSizeHeading4,
             lineHeight: token.lineHeightHeading4

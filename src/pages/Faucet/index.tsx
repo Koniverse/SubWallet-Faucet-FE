@@ -198,9 +198,9 @@ function WrapperComponent({className = ''}: ThemeProps): React.ReactElement<Prop
 
 const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken, token}}: WrapperProps) => {
     return ({
+        paddingTop: 24,
         paddingLeft: token.padding,
         paddingRight: token.padding,
-        minHeight: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -208,6 +208,7 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
         maxWidth: 1184,
         marginLeft: 'auto',
         marginRight: 'auto',
+        height: 'auto',
         overflow: 'auto',
         '.body-area': {
             flex: '1 1 0%',
