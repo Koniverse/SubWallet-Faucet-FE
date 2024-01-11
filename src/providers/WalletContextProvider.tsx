@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @subwallet/wallet-connect authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import {getWalletBySource} from '@subwallet/wallet-connect/dotsama/wallets';
+import {getWalletBySource, isWalletInstalled} from '@subwallet/wallet-connect/dotsama/wallets';
 import {getEvmWalletBySource} from '@subwallet/wallet-connect/evm/evmWallets';
 import {EvmWallet, Wallet, WalletAccount} from '@subwallet/wallet-connect/types';
 import React, {useCallback, useContext, useEffect, useState} from "react";
@@ -214,14 +214,16 @@ export function WalletContextProvider({children}: Props) {
         isOpen: isSelectWallet,
         open: () => {
             if (isMobile) {
-                const subwallet = getWalletBySource('subwallet-js');
-                if (subwallet) {
-                    setIsSelectWallet(true);
-                    selectWallet(subwallet)
-                      .catch(console.error)
-                      .finally(() => {
-                          setIsSelectWallet(false);
-                      });
+                if (isWalletInstalled('subwallet-js')) {
+                    const subwallet = getWalletBySource('subwallet-js');
+                    if (subwallet) {
+                        setIsSelectWallet(true);
+                        selectWallet(subwallet)
+                            .catch(console.error)
+                            .finally(() => {
+                                setIsSelectWallet(false);
+                            });
+                    }
                 } else {
                     const encodedURL = encodeURI(window.location.href);
 
