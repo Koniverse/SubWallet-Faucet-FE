@@ -15,10 +15,11 @@ import CN from "classnames";
 
 interface Props extends ThemeProps {
     loading?: boolean
+    disabled?: boolean
 }
 const renderEmpty = () => <GeneralEmptyList />;
 
-function Component({className}: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
+function Component({className, disabled}: Props, ref: ForwardedRef<InputRef>): React.ReactElement<Props> {
     const {t} = useTranslation();
     const {disconnectAccount} = useContext(WalletContext);
     // const notification = useNotification();
@@ -168,6 +169,7 @@ function Component({className}: Props, ref: ForwardedRef<InputRef>): React.React
             footer={renderFooter}
             fullSizeOnMobile
             id={"modalId"}
+            disabled={disabled}
             ignoreScrollbarMethod='padding'
             inputWidth={'100%'}
             itemKey='address'

@@ -109,7 +109,7 @@ const Component = () => {
         <>
             <div className="body-area">
                 <ChainSelector className={'__chain_selector'}/>
-                {accounts.length > 0 && <AccountSelector className={'__account_selector'}/>}
+                {accounts.length > 0 && <AccountSelector disabled={submitLoading} className={'__account_selector'}/>}
 
                 <div className="__content-area">
                     <div className="__content-area-title">
