@@ -31,8 +31,8 @@ const StyledLayout = styled('div')<ThemeProps>(({theme: {extendToken, token}}: T
             top: 0,
             left: 0,
             right: 0,
-            bottom: 0,
             zIndex: 0,
+            height: 331,
             transitionDuration: 'background-color 0.3s ease',
             background: extendToken.tokensScreenInfoBackgroundColor,
 

@@ -209,11 +209,12 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
         marginLeft: 'auto',
         marginRight: 'auto',
         height: 'auto',
-        overflow: 'auto',
+        minHeight: '100%',
+
         '.body-area': {
             flex: '1 1 0%',
             maxWidth: 384,
-            paddingBottom: 128,
+            paddingBottom: 24,
             borderRadius: 8,
             gap: 24,
             '.__content-area': {
@@ -297,8 +298,6 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
             alignItems: 'center',
             paddingTop: token.sizeLG,
             paddingBottom: 42,
-            position: 'sticky',
-            bottom: 0,
             background: token.colorBgDefault,
             opacity: 1,
             zIndex: 10
