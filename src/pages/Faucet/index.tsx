@@ -214,7 +214,7 @@ const FaucetIndex = styled(WrapperComponent)<WrapperProps>(({theme: {extendToken
         '.body-area': {
             flex: '1 1 0%',
             maxWidth: 384,
-            paddingBottom: 24,
+            paddingBottom: 80,
             borderRadius: 8,
             gap: 24,
             '.__content-area': {
