@@ -11,6 +11,7 @@ import Logo2D from "../../Logo/Logo2D";
 import {useNavigate} from "react-router-dom";
 import {ScreenContext, Screens} from "../../../providers/ScreenContext";
 import CN from "classnames";
+import {openLink} from "../../../utils/window";
 
 export type Props = ThemeProps & {
     title?: string | React.ReactNode;
@@ -34,6 +35,10 @@ function Component({
     const defaultOnBack = useCallback(() => {
         goHome();
     }, [goHome]);
+
+    const _onClickHelp = useCallback(() => {
+        openLink('mailto:agent@subwallet.app');
+    }, []);
     return (
         <div className={className}>
             <div className='__box'>
@@ -78,6 +83,7 @@ function Component({
                         />
                     }
                     size='xs'
+                    onClick={_onClickHelp}
                     type='ghost'
                 >
                     {t<string>('Help')}
