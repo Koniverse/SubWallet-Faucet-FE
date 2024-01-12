@@ -37,7 +37,7 @@ function Component({
     }, [goHome]);
 
     const _onClickHelp = useCallback(() => {
-        openLink('mailto:agent@subwallet.app');
+        openLink('mailto:agent@subwallet.app?subject=[Feedback on Faucet page]');
     }, []);
     return (
         <div className={className}>
