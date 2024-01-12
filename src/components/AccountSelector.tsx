@@ -169,7 +169,7 @@ function Component({className, disabled}: Props, ref: ForwardedRef<InputRef>): R
             footer={renderFooter}
             fullSizeOnMobile
             id={"modalId"}
-            disabled={disabled}
+            disabled={disabled ?? false}
             ignoreScrollbarMethod='padding'
             inputWidth={'100%'}
             itemKey='address'
